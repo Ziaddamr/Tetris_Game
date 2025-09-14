@@ -1,58 +1,58 @@
 import gameplay
 
 
-def is_below_blocked(frame, block, x, y, w, h):
-    for i in range(h):
-        for j in range(w):
-            if 0 <= x+j and x+j < len(frame[0]) and 0 <= y and y < len(frame):
-                if block.shape[-1-i][j] == "#":
-                    if y-i + 1 >= len(frame):
+def is_below_blocked(frame, block, x_coordinate, y_coordinate, width, height):
+    for column in range(height):
+        for row in range(width):
+            if 0 <= x_coordinate+row and x_coordinate+row < len(frame[0]) and 0 <= y_coordinate and y_coordinate < len(frame):
+                if block.shape[-1-column][row] == "#":
+                    if y_coordinate-column + 1 >= len(frame):
                         return True
-                    if frame[y-i+1][x+j] in ("#", "_"):
+                    if frame[y_coordinate-column+1][x_coordinate+row] in ("#", "_"):
                         return True
-                    frame[y-i][x+j] = "."
+                    frame[y_coordinate-column][x_coordinate+row] = "."
     return False
 
 
-def is_left_blocked(frame, block, x, y, w, h):
-    for i in range(w):
-        for j in range(h):
-            if 0 <= y < len(frame) and 0 <= x-i < len(frame[0]):
-                if block.shape[-1-j][i] == "#":
-                    if x-i-1 >= len(frame[0]):
+def is_left_blocked(frame, block, x_coordinate, y_coordinate, width, height):
+    for row in range(width):
+        for column in range(height):
+            if 0 <= y_coordinate < len(frame) and 0 <= x_coordinate-row < len(frame[0]):
+                if block.shape[-1-column][row] == "#":
+                    if x_coordinate-row-1 >= len(frame[0]):
                         return True
-                    if frame[y-j][x+i-1] in ("#", "|"):
+                    if frame[y_coordinate-column][x_coordinate+row-1] in ("#", "|"):
                         return True
-                frame[y-j][x+i] = "."
+                frame[y_coordinate-column][x_coordinate+row] = "."
     return False
 
 
-def is_right_blocked(frame, block, x, y, w, h):
-    for i in range(w):
-        for j in range(h):
-            if 0 <= y < len(frame) and 0 <= x+w < len(frame[0]):
-                if block.shape[-1-j][w-1-i] == "#":
-                    if x+w-i >= len(frame[0]):
+def is_right_blocked(frame, block, x_coordinate, y_coordinate, width, height):
+    for row in range(width):
+        for column in range(height):
+            if 0 <= y_coordinate < len(frame) and 0 <= x_coordinate + width < len(frame[0]):
+                if block.shape[-1-column][width - 1-row] == "#":
+                    if x_coordinate + width - row >= len(frame[0]):
                         return True
-                    if frame[y-j][x+w-i] in ("#", "|"):
+                    if frame[y_coordinate - column][x_coordinate + width - row] in ("#", "|"):
                         return True
-                frame[y-j][x+w-1-i] = "."
+                frame[y_coordinate - column][x_coordinate + width - 1-row] = "."
     return False
 
 
 def is_row_full(frame, Score, renderer):
-    flag = False
+    isFull = False
     for y in range(renderer.HEIGHT-2, 1, -1):
         for x in range(renderer.WIDTH):
             if frame[y][x] == ".":
-                flag = False
+                isFull = False
                 break
-            flag = True
-        while flag:
+            isFull = True
+        while isFull:
             gameplay.rows_shifting(frame, y, renderer)
             Score["score"] += 1
             for x in range(renderer.WIDTH):
                 if frame[y][x] == ".":
-                    flag = False
+                    isFull = False
                     break
-                flag = True
+                isFull = True

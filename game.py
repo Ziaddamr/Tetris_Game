@@ -23,24 +23,25 @@ class Game():
             renderer = Renderer()
             frame = renderer.generateFrame()
             while True:
-                x, y = 7, 4
-                Flag = True
+                x_coordinate, y_coordinate = renderer.WIDTH//2, renderer.HEIGHT//10
+                should_continue = True
                 clear()
                 block = Block()
                 validation.is_row_full(frame, Score, renderer)
-                renderer.drawBlock(frame, block, x, y, block.w, block.h)
+                renderer.drawBlock(frame, block, x_coordinate, y_coordinate,
+                                   block.width, block.height)
                 renderer.drawFrame(frame, Score)
-                while Flag:
+                while should_continue:
                     time.sleep(0.05)
                     start = time.time()
                     while time.time() - start < 0.05:
                         if msvcrt.kbhit():
                             key = msvcrt.getch()
-                            x, y, block, Flag = gameplay.movement(
-                                frame, block, x, y, Score, renderer, key)
+                            x_coordinate, y_coordinate, block, should_continue = gameplay.movement(
+                                frame, block, x_coordinate, y_coordinate, Score, renderer, key)
 
                         else:
-                            x, y, block, Flag = gameplay.movement(
-                                frame, block, x, y, Score, renderer,  b"")
+                            x_coordinate, y_coordinate, block, should_continue = gameplay.movement(
+                                frame, block, x_coordinate, y_coordinate, Score, renderer,  b"")
         elif choice == b"2":
             pass

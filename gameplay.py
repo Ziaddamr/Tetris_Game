@@ -10,47 +10,54 @@ def clear():
         os.system('cls')
 
 
-def movement(frame, block,  x, y, Score, renderer, key=""):
+def movement(frame, block,  x_coordinate, y_coordinate, Score, renderer, key=""):
     time.sleep(0.05)
     if key == b"":
-        if not validation.is_below_blocked(copy.deepcopy(frame), block, x, y, block.w, block.h):
+        if not validation.is_below_blocked(copy.deepcopy(frame), block, x_coordinate, y_coordinate, block.width, block.height):
             clear()
-            renderer.eraseBlock(frame, block, x, y, block.w, block.h)
-            y += 1
-            renderer.drawBlock(frame, block, x, y, block.w, block.h)
+            renderer.eraseBlock(frame, block, x_coordinate,
+                                y_coordinate, block.width, block.height)
+            y_coordinate += 1
+            renderer.drawBlock(frame, block, x_coordinate,
+                               y_coordinate, block.width, block.height)
             renderer.drawFrame(frame, Score)
             print()
-            return x, y, block, True
+            return x_coordinate, y_coordinate, block, True
         else:
-            return x, y, block, False
+            return x_coordinate, y_coordinate, block, False
     elif key == b"r":
-        renderer.eraseBlock(frame, block, x, y, block.w, block.h)
+        renderer.eraseBlock(frame, block, x_coordinate,
+                            y_coordinate, block.width, block.height)
         block.rotate()
-        return x, y, block, True
+        return x_coordinate, y_coordinate, block, True
     elif key == b"a":
-        if not validation.is_left_blocked(copy.deepcopy(frame), block,  x, y, block.w, block.h):
+        if not validation.is_left_blocked(copy.deepcopy(frame), block,  x_coordinate, y_coordinate, block.width, block.height):
             clear()
-            renderer.eraseBlock(frame, block, x, y, block.w, block.h)
-            x -= 1
-            renderer.drawBlock(frame, block, x, y, block.w, block.h)
+            renderer.eraseBlock(frame, block, x_coordinate,
+                                y_coordinate, block.width, block.height)
+            x_coordinate -= 1
+            renderer.drawBlock(frame, block, x_coordinate,
+                               y_coordinate, block.width, block.height)
             renderer.drawFrame(frame, Score)
 
-            return x, y, block, True
+            return x_coordinate, y_coordinate, block, True
         else:
-            return x, y, block, True
+            return x_coordinate, y_coordinate, block, True
 
     elif key == b"d":
-        if not validation.is_right_blocked(copy.deepcopy(frame), block,  x, y, block.w, block.h):
+        if not validation.is_right_blocked(copy.deepcopy(frame), block,  x_coordinate, y_coordinate, block.width, block.height):
             clear()
-            renderer.eraseBlock(frame, block, x, y, block.w, block.h)
-            x += 1
-            renderer.drawBlock(frame, block, x, y, block.w, block.h)
+            renderer.eraseBlock(frame, block, x_coordinate,
+                                y_coordinate, block.width, block.height)
+            x_coordinate += 1
+            renderer.drawBlock(frame, block, x_coordinate,
+                               y_coordinate, block.width, block.height)
             renderer.drawFrame(frame, Score)
-            return x, y, block, True
+            return x_coordinate, y_coordinate, block, True
         else:
-            return x, y, block, True
+            return x_coordinate, y_coordinate, block, True
     else:
-        return x, y, block, True
+        return x_coordinate, y_coordinate, block, True
 
 
 def rows_shifting(frame, row, renderer):

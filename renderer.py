@@ -23,14 +23,15 @@ class Renderer:
             print()
         print(f"Score: {Score['score']}")
 
-    def drawBlock(self, frame, block, x, y, w, h):
-        for i in range(h):
-            for j in range(w):
-                if block.shape[-1-i][j] != " ":
-                    frame[y-i][x+j] = block.shape[-1-i][j]
+    def drawBlock(self, frame, block, x_coordinate, y_coordinate, width, height):
+        for column in range(height):
+            for row in range(width):
+                if block.shape[-1-column][row] != " ":
+                    frame[y_coordinate-column][x_coordinate +
+                                               row] = block.shape[-1-column][row]
 
-    def eraseBlock(self, frame, block, x, y, width, height):
+    def eraseBlock(self, frame, block, x_coordinate, y_coordinate, width, height):
         for h in range(height):
             for w in range(width):
                 if block.shape[-1-h][w] != " ":
-                    frame[y-h][x+w] = "."
+                    frame[y_coordinate-h][x_coordinate+w] = "."
