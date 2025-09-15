@@ -56,3 +56,8 @@ def is_row_full(frame, Score, renderer):
                     isFull = False
                     break
                 isFull = True
+
+
+def is_game_over(frame, block, x_coordinate, y_coordinate, width, height):
+    if is_below_blocked(frame, block, x_coordinate, y_coordinate, width, height):
+        return True
